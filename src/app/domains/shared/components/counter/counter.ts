@@ -37,15 +37,12 @@ counterRef:number | undefined;
     console.log(('-').repeat(10));
     console.log('duration => ', this.duration);
     console.log('message => ', this.message);
-       if (isPlatformBrowser(this.platformId)) {   
+    //   if (isPlatformBrowser(this.platformId)) {   
     this.counterRef = window.setInterval(() => {
       console.log('tick');
       this.counter.update(c => c + 1);
     }, 1000);
-  }
-  }
-  platformId(platformId: any) {
-    throw new Error('Method not implemented.');
+  //}
   }
   ngAfterViewInit() {
     //after first render
@@ -60,13 +57,13 @@ counterRef:number | undefined;
     //cleanup, unsubscribe, detach event listeners...
     console.log("ngOnDestroy");
     console.log(('*').repeat(10));
-     if (isPlatformBrowser(this.platformId)) {   
+     //if (isPlatformBrowser(this.platformId)) {   
     window.clearInterval(this.counterRef);  
-     }
+     //}
   }
+
   doSomething(){
     //async, then,  subscribe, fetch, setTimeout...
     console.log("duration has changed");
-    
   }
 }

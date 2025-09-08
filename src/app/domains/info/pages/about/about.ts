@@ -1,8 +1,10 @@
 import { Component, signal } from '@angular/core';
 import { Counter } from '../../../shared/components/counter/counter';
+import { WaveAudio } from '../../components/wave-audio/wave-audio';
+
 @Component({
   selector: 'app-about',
-  imports: [Counter],
+  imports: [Counter, WaveAudio],
   templateUrl: './about.html',
   styleUrl: './about.css'
 })
