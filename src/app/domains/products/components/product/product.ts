@@ -1,8 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product as ProductModel } from '../../../shared/models/product.model'; 
+import { CurrencyPipe, UpperCasePipe } from '@angular/common';
+
 @Component({
   selector: 'app-product',
-  imports: [],
+  imports: [CurrencyPipe, UpperCasePipe ],
   templateUrl: './product.html',
   styleUrl: './product.css'
 })

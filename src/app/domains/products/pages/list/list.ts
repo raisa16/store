@@ -1,7 +1,9 @@
-import { Component,signal, WritableSignal } from '@angular/core';
+import { Component,inject,signal, WritableSignal } from '@angular/core';
 import { Product } from '../../components/product/product';
 import { Product as ProductModel } from '../../../shared/models/product.model';  
 import { Header } from '../../../shared/components/header/header';
+import { Cart } from '../../../shared/services/cart';
+import { Product as ProductService } from '../../../shared/services/product';
 @Component({
   selector: 'app-list',
   imports: [Product, Header],
@@ -10,48 +12,22 @@ import { Header } from '../../../shared/components/header/header';
 })
 export class List {
   products: WritableSignal<ProductModel[]> = signal([]);
-  cart: WritableSignal<ProductModel[]> = signal([]);
-  
+  private cart = inject(Cart);
+  private productService = inject(ProductService);
 
-  constructor() {
-    const initProducts = [
-      { id: Date.now(),
-        title: 'Product 1',
-        price: 100,
-        image: 'https://picsum.photos/640/640?r=232'
-      }, 
-      { id: Date.now(), 
-        title: 'Product 2', 
-        price: 200, 
-        image: 'https://picsum.photos/640/640?r=233' 
-      },
-      { id: Date.now(),
-        title: 'Product 3',
-        price: 100,
-        image: 'https://picsum.photos/640/640?r=223'
-      }, 
-      { id: Date.now(), 
-        title: 'Product 4', 
-        price: 200, 
-        image: 'https://picsum.photos/640/640?r=234' 
-      },
-      { id: Date.now(),
-        title: 'Product 5',
-        price: 100,
-        image: 'https://picsum.photos/640/640?r=235'
-      }, 
-      { id: Date.now(), 
-        title: 'Product 6', 
-        price: 200, 
-        image: 'https://picsum.photos/640/640?r=236' 
-      }
-    ];
-    
-    this.products.set(initProducts);
+  ngOnInit() {
+    this.productService.getProducts()
+      .subscribe({
+        next: (products) => {
+          this.products.set(products);
+        }, error: (error: any) => {
+      console.error(error);
+    }
+  });
   }
   
   addToCart(product: ProductModel) {
-    this.cart.update(prevEstate => [...prevEstate, product]);
+    this.cart.addToCart(product);
     
 }
 }
