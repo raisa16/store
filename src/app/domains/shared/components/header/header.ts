@@ -1,9 +1,10 @@
-import { Component, Input, signal, inject } from '@angular/core';
-import { Product } from '../../models/product.model';
+import { Component, signal, inject } from '@angular/core';
+import { RouterLinkWithHref, RouterLinkActive, RouterModule } from '@angular/router';
 import { Cart } from '../../services/cart';
+
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [RouterLinkWithHref, RouterLinkActive,RouterModule],
   templateUrl: './header.html',
   styleUrl: './header.css'
 })
