@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { List } from './domains/products/pages/list/list';
-import { About } from './domains/info/pages/about/about';
 import { NotFound } from './domains/info/pages/not-found/not-found';
 import { Layout } from './domains/shared/components/layout/layout';
-
+import { RenderMode, ServerRoute } from '@angular/ssr';
+//import { ProductDetail } from './domains/products/pages/product-detail/product-detail';
+// ...existing code...
 export const routes: Routes = [
   {
     path: '',
@@ -11,12 +11,16 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        component: List,
+        loadComponent: () => import('./domains/products/pages/list/list'),
       },
       {
         path: 'about',
-        component: About,
+        loadComponent: () => import('./domains/info/pages/about/about'),
       },
+{
+  path: 'product/:id',
+  loadComponent: () => import('./domains/products/pages/product-detail/product-detail'),
+}
     ],
   },
   {
